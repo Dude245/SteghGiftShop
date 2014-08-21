@@ -1,4 +1,0 @@
-SteghGiftShop
-=============
-
-STEGH Gift Shop
