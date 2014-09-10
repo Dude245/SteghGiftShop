@@ -628,11 +628,15 @@ public class Gui extends JFrame implements ActionListener {
             rList = FileIO.convertHashMapListToLibList(libHashList);
             barC.setEditable(false);
             barcode = barC.getText();
+            barcode="0"+barcode;
             String found = "";
             //Start the main search structure
 
             for (int i = 0; i < rList.size(); i++) {
                 if (rList.get(i).getCallN().equals(barC.getText())) {
+                    found = "Found";
+                }
+                else if (rList.get(i).getCallN().equals(barcode)) {
                     found = "Found";
                 }
                 //Found output
