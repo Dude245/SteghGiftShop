@@ -627,8 +627,11 @@ public class Gui extends JFrame implements ActionListener {
             }
             rList = FileIO.convertHashMapListToLibList(libHashList);
             barC.setEditable(false);
+                       String bar2=barC.getText();
             barcode = barC.getText();
-            barcode="0"+barcode;
+         bar2="0"+bar2;
+          String barc3=barC.getText();
+           
             String found = "";
             //Start the main search structure
 
@@ -636,7 +639,10 @@ public class Gui extends JFrame implements ActionListener {
                 if (rList.get(i).getCallN().equals(barC.getText())) {
                     found = "Found";
                 }
-                else if (rList.get(i).getCallN().equals(barcode)) {
+                else if (rList.get(i).getCallN().equals(bar2)) {
+                    found = "Found";
+                }
+                else if (rList.get(i).getCallN().equals(barc3.substring(1))) {
                     found = "Found";
                 }
                 //Found output
@@ -685,7 +691,7 @@ public class Gui extends JFrame implements ActionListener {
                     comp.setEditable(false);
                     comp.setVisible(true);
                     compLbl.setVisible(true);
-                    if (rList.get(i).getCallN().equals(barcode)) {
+                     if ((rList.get(i).getCallN().equals(bar2))|| rList.get(i).getCallN().equals(barcode) || rList.get(i).getCallN().equals(barc3.substring(1)) ) {
                         keyW.setText(barcode);
                         barC.setText(barcode);
                         title.setText(rList.get(i).getTitle());
