@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class Gui extends JFrame implements ActionListener {
 
     //Declare buttons and menu items
     public static ArrayList<Refrence> rList = new ArrayList<>();
+
     private final String fpi = "P:\\Gift Shop\\Data\\Database.db";
     private final String fpo = "P:\\Gift Shop\\Data\\Database.db";
     private final String Log = "P:\\Gift Shop\\Data\\Log.csv";
@@ -109,8 +111,20 @@ public class Gui extends JFrame implements ActionListener {
     int cFlag = 0;
     ArrayList<HashMap<String, String>> libHashList;
 //This class contains the GUI elements
-
     public Gui() throws InterruptedException, IOException {
+        if (cFlag == 0) {
+            File fileToSave = new File("P:\\Gift Shop\\Data\\Database.db");
+          
+            //
+            File path = new File(fileToSave.getAbsolutePath());
+            File DB = new File("P:\\Gift Shop\\Data\\DatabaseCP.db");
+            try {
+                Files.copy(DB.toPath(), path.toPath(), REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
         //Use the Hashmap and data file from previous assignments
 
         //Create the refrencelist
@@ -339,9 +353,8 @@ public class Gui extends JFrame implements ActionListener {
         if (E.getSource() == createL) {
 
             //cBarCLbl.setVisible(true);
-           // cBarC.setVisible(true);
+            // cBarC.setVisible(true);
             //create.setVisible(true);
-
             barC.setVisible(false);
             barCLbl.setVisible(false);
             titleLbl.setVisible(false);
@@ -627,22 +640,20 @@ public class Gui extends JFrame implements ActionListener {
             }
             rList = FileIO.convertHashMapListToLibList(libHashList);
             barC.setEditable(false);
-                       String bar2=barC.getText();
+            String bar2 = barC.getText();
             barcode = barC.getText();
-         bar2="0"+bar2;
-          String barc3=barC.getText();
-           
+            bar2 = "0" + bar2;
+            String barc3 = barC.getText();
+
             String found = "";
             //Start the main search structure
 
             for (int i = 0; i < rList.size(); i++) {
                 if (rList.get(i).getCallN().equals(barC.getText())) {
                     found = "Found";
-                }
-                else if (rList.get(i).getCallN().equals(bar2)) {
+                } else if (rList.get(i).getCallN().equals(bar2)) {
                     found = "Found";
-                }
-                else if (rList.get(i).getCallN().equals(barc3.substring(1))) {
+                } else if (rList.get(i).getCallN().equals(barc3.substring(1))) {
                     found = "Found";
                 }
                 //Found output
@@ -691,7 +702,7 @@ public class Gui extends JFrame implements ActionListener {
                     comp.setEditable(false);
                     comp.setVisible(true);
                     compLbl.setVisible(true);
-                     if ((rList.get(i).getCallN().equals(bar2))|| rList.get(i).getCallN().equals(barcode) || rList.get(i).getCallN().equals(barc3.substring(1)) ) {
+                    if ((rList.get(i).getCallN().equals(bar2)) || rList.get(i).getCallN().equals(barcode) || rList.get(i).getCallN().equals(barc3.substring(1))) {
                         keyW.setText(barcode);
                         barC.setText(barcode);
                         title.setText(rList.get(i).getTitle());
